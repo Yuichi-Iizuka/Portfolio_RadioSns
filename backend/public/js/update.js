@@ -16,12 +16,13 @@ $(function () {
       data: {},
       dataType: 'json'
     }).done(function (data) {
-      console.debug(data);
+      console.log(data);
       $('#tweet').find('.tweet-visible').remove();
 
-      for (var i = 0; i < data.result.length; i++) {
-        var html = '<div class="tweet-visible"><div class="card mb-2"><div class="card-body"><div class="media"><img src="https://placehold.jp/70x70.png class="rounded-circle mr-4"><div class="media-body"><div class="media-body"><p class="mt-3 mb-0">${data.result[i].text}</p></div></div><div><div></div>';
-        $('tweet').append(html);
+      for (var i = 0; i < data.statuses.length; i++) {
+        var tweetClone = $('#tweetlist').clone(true).removeAttr('style').addClass('tweet-visible');
+        tweetClone.find('#text').first().append(data.statuses[i].text);
+        $('#tweet').append(tweetClone);
       }
     }).fail(function (data) {});
   });

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
   
-  @foreach ($result->statusces as $tweet)
+  @foreach ($result->statuses as $tweet)
   <div class="card mb-2">
     <div class="card-body">
       <div class="media">

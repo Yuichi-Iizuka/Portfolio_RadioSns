@@ -11,8 +11,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script sec="{{ mix('js/clock.js') }}" defer></script>
-    <script sec="{{ mix('js/update.js') }}" defer></script>
+    <script src="{{ mix('js/clock.js') }}" defer></script>
+    <script src="{{ mix('js/update.js') }}" defer></script>
 
 
     <!-- Fonts -->
