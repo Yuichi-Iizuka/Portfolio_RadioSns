@@ -17,9 +17,10 @@ class TwitterController extends Controller
     }
 
     public function getTimeline(Request $request)
-    {
-        $word = ['#三四郎ANN0'];
-        $since = ['2021-05-22_03:00:00_JST'];
+    {   
+        $program = Program::find($request->id);
+        $word = $program->tag;
+        $since = ['2021-05-22_' + $request->clock  + 'JST'];
         $until = ['2021-05-22_03:08:00_JST'];
 
         $result = \Twitter::get('search/tweets',['q' => $word,'since' => $since,'until' => $until,'count' => 10,]);

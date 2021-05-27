@@ -19,8 +19,9 @@
     </div>
     <div class="card-body">
 
-      <div id="clock" class="text-center">00:00:00
+      <div id="clock" class="text-center" value="clock">00:00:00
       </div>
+      
       <input type="hidden" name="program_id" id="program_id" value="{{ $program->id }}">
       <button class="btn btn-primary" id="update" type="button">ツイート取得</button>
     </div>
