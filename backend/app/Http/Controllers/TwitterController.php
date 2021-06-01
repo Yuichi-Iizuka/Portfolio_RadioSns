@@ -20,7 +20,7 @@ class TwitterController extends Controller
     {
         $word = ['#三四郎ANN0'];
         $since = ['2021-05-22_03:00:00_JST'];
-        $until = ['2021-05-22_03:08:00_JST'];
+        $until = ['2021-5-22' + $request->clock + '_JST'];
 
         $result = \Twitter::get('search/tweets',['q' => $word,'since' => $since,'until' => $until,'count' => 10,]);
 

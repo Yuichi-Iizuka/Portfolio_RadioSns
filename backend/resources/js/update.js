@@ -10,7 +10,9 @@ $(function () {
       },
       url: '/program/' + id + '/twitter/timeline',
       type: 'GET',
-      data: {},
+      data: {
+        'clock': clock,
+      },
       dataType: 'json',
     })
       .done(function (data) {

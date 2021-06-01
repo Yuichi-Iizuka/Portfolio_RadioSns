@@ -11,8 +11,9 @@ class Program extends Model
     protected $fillable = [
         'title',
         'body',
-        'tags',
-        'image',
+        'tag',
+        'start_date',
+        'start_time'
     ];
 
     public function users()
