@@ -19,11 +19,21 @@
     </div>
     <div class="card-body">
 
+<<<<<<< Updated upstream
       <div id="clock" class="text-center" value="clock">00:00:00
       </div>
       
       <input type="hidden" name="program_id" id="program_id" value="{{ $program->id }}">
       <button class="btn btn-primary" id="update" type="button">ツイート取得</button>
+=======
+      <form>
+        <div id="clock" class="text-center">00:00:00
+        </div>
+
+        <input type="hidden" name="program_id" id="program_id" value="{{ $program->id }}">
+        <button class="btn btn-primary" id="update" type="button">ツイート取得</button>
+      </form>
+>>>>>>> Stashed changes
     </div>
   </div>
 </div>
@@ -48,8 +58,6 @@
       </div>
     </div>
   </div>
-
-
 
   <button type="button" onclick="historu.back()">戻る</button>
 
