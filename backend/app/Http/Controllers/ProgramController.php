@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ProgramMakeRequest;
 use App\Program;
 use App\Http\Controllers\Auth;
 use App\User;
@@ -28,7 +29,7 @@ class ProgramController extends Controller
      */
     public function create()
     {
-        //
+        return view('program.store');
     }
 
     /**
@@ -37,9 +38,13 @@ class ProgramController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProgramMakeRequest $request)
     {
-        //
+        $program = new Program;
+        $form = $request->all();
+        unset($form['_token']);
+        $program->fill($form)->save();
+        return redirect('/program');
     }
 
     /**

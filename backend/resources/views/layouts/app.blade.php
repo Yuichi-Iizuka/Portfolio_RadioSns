@@ -11,11 +11,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-<<<<<<< Updated upstream
-    <script src="{{ asset('js/app.js') }}" defer></script>
-=======
 
->>>>>>> Stashed changes
     <script src="{{ mix('js/clock.js') }}" defer></script>
     <script src="{{ mix('js/update.js') }}" defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -25,12 +21,9 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <!-- Styles -->
-<<<<<<< Updated upstream
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-=======
+
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
->>>>>>> Stashed changes
 </head>
 
 <body>
@@ -53,14 +46,13 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
-<<<<<<< Updated upstream
-=======
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('program.create') }}">
                                 番組作成
                             </a>
                         </li>
->>>>>>> Stashed changes
+
                         @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -96,6 +88,8 @@
             @yield('content')
         </main>
     </div>
+    <script src="{{ mix('js/app.js') }}"></script>
+    <script type="text/javascript" src="/js/mdb.min.js"></script>
 </body>
 
 

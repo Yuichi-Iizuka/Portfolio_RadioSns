@@ -2,7 +2,7 @@ $(function () {
   $('#update').on('click', function () {
 
     var id = $('#program_id').val();
-    var clock = $('#clock').val();
+    var clock = document.getElementById('clock').innerText;
 
     $.ajax({
       headers: {
@@ -11,8 +11,10 @@ $(function () {
       url: '/program/' + id + '/twitter/timeline',
       type: 'GET',
       data: {
+
         'id': id,
         'clock': clock, 
+
       },
       dataType: 'json',
     })
