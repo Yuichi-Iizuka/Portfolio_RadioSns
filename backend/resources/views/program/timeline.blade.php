@@ -18,22 +18,12 @@
       経過時間
     </div>
     <div class="card-body">
-
-<<<<<<< Updated upstream
-      <div id="clock" class="text-center" value="clock">00:00:00
-      </div>
-      
-      <input type="hidden" name="program_id" id="program_id" value="{{ $program->id }}">
-      <button class="btn btn-primary" id="update" type="button">ツイート取得</button>
-=======
       <form>
         <div id="clock" class="text-center">00:00:00
         </div>
-
         <input type="hidden" name="program_id" id="program_id" value="{{ $program->id }}">
-        <button class="btn btn-primary" id="update" type="button">ツイート取得</button>
+        <button class="btn btn-outline-info waves-effect" id="update" type="button"><i class="fab fa-twitter"></i>ツイート取得</button>
       </form>
->>>>>>> Stashed changes
     </div>
   </div>
 </div>
