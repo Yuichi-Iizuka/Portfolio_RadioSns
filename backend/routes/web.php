@@ -35,3 +35,8 @@ Route::get('/twitter/timeline','TwitterController@getTimeline');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::prefix('mypage')->name('mypage.')->group(function(){
+Route::get('/user','MypageController@index')->name('user');
+Route::get('/like','MypageController@showLike')->name('like');
+});

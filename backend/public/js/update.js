@@ -5,15 +5,22 @@ var __webpack_exports__ = {};
   \********************************/
 $(function () {
   $('#update').on('click', function () {
+    $(this).prop('disabled', true);
+    setInterval(function () {
+      $('#update').prop('disabled', false);
+    }, 60000);
     var id = $('#program_id').val();
-    var clock = $('#clock').val();
+    var clock = document.getElementById('clock').innerText;
     $.ajax({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       url: '/program/' + id + '/twitter/timeline',
       type: 'GET',
-      data: {},
+      data: {
+        'id': id,
+        'clock': clock
+      },
       dataType: 'json'
     }).done(function (data) {
       console.log(data);

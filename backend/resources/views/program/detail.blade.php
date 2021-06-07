@@ -3,37 +3,30 @@
 @section('content')
 
 <div class="container">
-  <div class="card text-center">
-    <div class="card">
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">{{$item->title}}</h5>
-        <p class="card-text">{{$item->body}}</p>
-      </div>
-      <div class="card-footer text-muted">
+  <div class="card">
+    <div class="card-body card-body-cascade text-center">
+      <h5 class="card-title"><strong>{{$item->title}}</strong></h5>
+      <p class="card-text">{{$item->body}}</p>
+    </div>
 
-        <!-- <a href="#" class="card-link">コメント</a> -->
-        <!-- <a href="#" class="card-link">お気に入り登録</a> -->
-
-        @if($item->likes()->where('user_id',Auth::id())->exists())
-        {!! Form::open(['route' => ['program.unlike',$item->id],'method'=>'delete']) !!}
-        {!! Form::button('<a class="card-link">お気に入り解除</a>',['class' => "btn", 'type' => 'submit']) !!}
-        {!! Form::close() !!}
-        @else
-        {!! Form::open(['route' => ['program.like',$item->id],'method'=>'put']) !!}
-        {!! Form::button('<a class="card-link">お気に入り登録</a>',['class' => "btn", 'type' => 'submit']) !!}
-        {!! Form::close() !!}
-
-        @endif
-
-      </div>
+    @if($item->likes()->where('user_id',Auth::id())->exists())
+    {!! Form::open(['route' => ['program.unlike',$item->id],'method'=>'delete']) !!}
+    {!! Form::button('<a class="btn-floating btn-small btn-fb"><i class="fas fa-heart"></i></a>',['class' => "btn", 'type' => 'submit']) !!}
+    {!! Form::close() !!}
+    @else
+    {!! Form::open(['route' => ['program.like',$item->id],'method'=>'put']) !!}
+    {!! Form::button('<i class="fas fa-heart"></i>',['class' => "btn", 'type' => 'submit']) !!}
+    {!! Form::close() !!}
+    @endif
+    <hr>
+    <div class="row">
+      <div class="col"><a href="{{ route('program.index') }}" class="btn-floating btn-lg" title="一覧へ"><i class="fas fa-list fa-3x"></i></div>
+      <div class="col"><a type="button" data-toggle="modal" data-target="#commentModal" class="btn-floating btn-lg btn-tw"><i class="fas fa-comment-dots fa-4x"></i></a></div>
+      <div class="col"><a type="button" href="{{ route('timeline.index',$item->id) }}" class="btn-floating btn-lg btn-tw"><i class="fab fa-twitter fa-4x"></i></a></div>
     </div>
   </div>
-  <a href="{{ route('program.index')}}" class="btn btn-primary">一覧へ</a>
-  <a href="{{ route('timeline.index',$item->id) }}" class="btn btn-primary">ツイート取得</a>
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentModal">
-  コメントする
-</button>
+</div>
+
 
 <!-- Modal -->
 <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalTitle" aria-hidden="true">
@@ -46,14 +39,14 @@
         </button>
       </div>
       <form method="post" action="{{ route('comment.store',$item->id) }}">
-      @csrf
-      <div class="modal-body">
-      <textarea class="form-control" name="body" id="body" rows="3"></textarea>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
-        <button type="submit" class="btn btn-primary">投稿</button>
-      </div>
+        @csrf
+        <div class="modal-body">
+          <textarea class="form-control" name="body" id="body" rows="3"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
+          <button type="submit" class="btn btn-primary">投稿</button>
+        </div>
       </form>
     </div>
   </div>

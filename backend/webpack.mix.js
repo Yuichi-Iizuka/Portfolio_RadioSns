@@ -15,5 +15,6 @@ mix.js('resources/js/app.js', 'public/js')
    .js('resources/js/clock.js','public/js')
    .js('resources/js/update.js','public/js')
    .sass('resources/sass/app.scss', 'public/css')
+   .copy('node_modules/mdbootstrap/js/mdb.min.js', 'public/js')
    .vue()
    .version();
