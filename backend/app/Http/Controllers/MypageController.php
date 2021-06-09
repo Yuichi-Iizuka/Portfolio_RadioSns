@@ -11,18 +11,21 @@ class MypageController extends Controller
 {
 
     /**
-     * Display a listing of the resource.
+     * ユーザー情報と作成した番組を取得
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
         $user = Auth::user();
-        return view('mypage.mypage',compact('user'));
+        $userId = Auth::id();
+        $program = Program::where('user_id',$userId)->get();
+        \Log::info('$program="' . $program . '"');
+        return view('mypage.mypage',compact('user','program'));
     }
 
     /**
-     * Display the specified resource.
+     *ユーザー情報といいねした番組を取得
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
