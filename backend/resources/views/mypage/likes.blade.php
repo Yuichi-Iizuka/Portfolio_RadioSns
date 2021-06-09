@@ -16,11 +16,11 @@
 
   <ul class="nav nav-tabs nav-justified mt-3">
     <li class="nav-item">
-      <a class="nav-link text-muted active">
+      <a href="{{ route('mypage.user') }}" class="nav-link text-muted">
         投稿した番組</a>
     </li>
     <li class="nav-item">
-      <a href="{{ route('mypage.like',$user->id) }}" class="nav-link text-muted">いいねした番組</a>
+      <a href="{{ route('mypage.like') }}" class="nav-link text-muted active">いいねした番組</a>
     </li>
   </ul>
   @forelse($program as $program)

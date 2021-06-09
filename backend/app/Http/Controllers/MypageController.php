@@ -5,38 +5,37 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Program;
+use Illuminate\Support\Facades\Auth;
 
 class MypageController extends Controller
 {
-    private $user;
 
-    public function __construct(User $user) {
-        $this->user = $user;
-    }
-    
     /**
-     * Display a listing of the resource.
+     * ユーザー情報と作成した番組を取得
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $user = User::find($request->user()->id);
-        return view('mypage.mypage',compact('user'));
+        $user = Auth::user();
+        $userId = Auth::id();
+        $program = Program::where('user_id',$userId)->get();
+        \Log::info('$program="' . $program . '"');
+        return view('mypage.mypage',compact('user','program'));
     }
 
     /**
-     * Display the specified resource.
+     *ユーザー情報といいねした番組を取得
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function showLike(Request $request)
     {
-        $user = User::find($request->id);
-        $program = $user->likes();
-
-        return view('mypage.mypage',compact('program','user'));
+        $user = Auth::user();
+        $program = $user->likes;
+        \Log::info('$program="' . $program . '"');
+        return view('mypage.likes',compact('program','user'));
     }
     
 
