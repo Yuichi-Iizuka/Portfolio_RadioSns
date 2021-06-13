@@ -19,7 +19,7 @@ class ProgramController extends Controller
      */
     public function index()
     {
-        $program = Program::all();
+        $program = Program::orderBy('start_date','desc')->get();
         \Log::info('$program="'.$program.'"');
         return view('program.index',compact('program'));
     }
@@ -64,18 +64,19 @@ class ProgramController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * 番組の情報の編集ホーム
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $program = Program::find($id);
+        return view('program.edit',compact('program'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * 番組の編集した情報を保存する
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -83,17 +84,29 @@ class ProgramController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $program = Program::find($id);
+        $program->title = $request->title;
+        $program->body = $request->body;
+        $program->tag = $request->tag;
+        $program->start_date = $request->start_date;
+        $program->start_time = $request->start_time;
+        $program->save();
+        session()->flash('flash_message','番組を編集しました');
+        
+        return redirect('/program');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 番組を削除する
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $program = Program::find($id);
+        $program->delete();
+        session()->flash('flash_message','番組を削除しました');
+        return redirect('/program');
     }
 }
