@@ -70,4 +70,16 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
+    /** 
+    *登録後の処理
+    *メッセージの表示する
+    *
+    *
+    */
+    public function redirectPath()
+    {
+        session()->flash('flash_message','ユーザー登録しました');
+        return '/program';
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -36,5 +37,29 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /** 
+    *ログイン後の処理
+    *メッセージの表示する
+    *
+    *
+    */
+    public function redirectPath()
+    {
+        session()->flash('flash_message','ログインしました');
+        return '/program';
+    }
+
+    /** 
+    *ログアウト処理
+    *メッセージを表示する
+    *@param \Illuminate\Http\Request  $request
+    *@return \Illuminate\Http\RedirectResponse
+    */
+    public function loggedOut(Request $request)
+    {
+        session()->flash('flash_message','ログアウトしました');
+        return redirect('/program');
     }
 }
