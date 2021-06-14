@@ -31,7 +31,7 @@ class ProgramController extends Controller
      */
     public function create()
     {
-        return view('program.store');
+        return view('program.create');
     }
 
     /**
