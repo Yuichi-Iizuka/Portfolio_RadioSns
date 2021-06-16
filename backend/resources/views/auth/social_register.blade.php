@@ -1,0 +1,41 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <!-- <div class="card-header">{{ __('Register') }}</div> -->
+
+        <div class="card-body">
+          <form method="POST" action="{{ route('register.{provider}',['provider' => $provider]) }}">
+            @csrf
+            <input type="hidden" name="token" value="{{ $token }}">
+            <p class="h4 text-center py-4">ユーザー登録</p>
+            <div class="md-form">
+              <i class="fa fa-user prefix grey-text"></i>
+              <input id="materialFormCardNameEx" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+              <label for="materialFormCardNameEx" class="font-weight-light">名前</label>
+
+              @error('name')
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+              </span>
+              @enderror
+            </div>
+            <div class="md-form">
+              <i class="fa fa-envelope prefix grey-text"></i>
+              <input id="materialFormCardNameEx" type="email" class="form-control" name="email" value="{{$email }}" disabled autocomplete="email">
+              <label for="materialFormCardNameEx" class="font-weight-light">メール</label>
+            </div>
+
+            <button type="submit" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0">
+              登録
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+@endsection
