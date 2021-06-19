@@ -55,9 +55,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 // マイページ
 Route::prefix('mypage')->name('mypage.')->group(function(){
 // 自分が作成した番組を一覧で表示するページ
-Route::get('/user','MypageController@index')->name('user');
+Route::get('/{user}','UserController@show')->name('user');
 // 自分がいいねした番組を一覧で表示するページ
-Route::get('/like','MypageController@showLike')->name('like');
+Route::get('/{user}/like','UserController@showLike')->name('like');
+
+Route::get('/{user}/edit','UserController@edit')->name('edit');
+
+Route::patch('/{user}/update','UserController@update')->name('update');
 });
 
 // Googleログイン
