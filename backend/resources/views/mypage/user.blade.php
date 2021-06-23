@@ -14,7 +14,7 @@
           </button>
         </a>
         <div class="dropdown-menu dropdown-menu-right">
-          <a class="dropdown-item" href="{{ route('mypage.edit',$user->name) }}">
+          <a class="dropdown-item" href="{{ route('mypage.edit',Auth::user()->id) }}">
             <i class="fas fa-pen mr-1"></i>更新する
           </a>
         </div>

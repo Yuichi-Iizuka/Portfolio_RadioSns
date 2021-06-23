@@ -1,7 +1,8 @@
 $(function () {
+  // クリックしたあと1分間非活性化
   $('#update').on('click', function () {
     $(this).prop('disabled', true);
-    setInterval(function () {
+    setTimeout(function () {
       $('#update').prop('disabled', false);
     }, 60000);
     var id = $('#program_id').val();
@@ -27,6 +28,7 @@ $(function () {
 
         for (var i = 0; i < data.statuses.length; i++) {
           var tweetClone = $('#tweetlist').clone(true).removeAttr('style').addClass('tweet-visible');
+          tweetClone.find('#name').first().append(data.statuses[i].user.name);
           tweetClone.find('#text').first().append(data.statuses[i].text);
 
 

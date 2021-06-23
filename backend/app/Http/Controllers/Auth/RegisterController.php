@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\User;
+use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -33,15 +33,17 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+    protected $userRepository;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->middleware('guest');
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -67,15 +69,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $form = ['name' => $data['name'],'email' => $data['email'],'password' => Hash::make($data['password'])];
+        return $this->userRepository->createUser($form);
+        
     }
 
     /** 
-    *Googleログインでのユーザーの登録フォーム
+    *ソーシャルログインでのユーザーの登録フォーム
     *
     *@return \Illuminate\Http\Response
     */
@@ -105,17 +105,22 @@ class RegisterController extends Controller
         $request->validate([
             'name' => ['required','string','max:255'],
             'token' => ['required','string'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
         $token = $request->token;
 
         $providerUser = Socialite::driver($provider)->userFromToken($token);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $providerUser->getEmail(),
-            'password' => null,
-        ]);
+        $form = ['name' => $request->name,'email' => $providerUser->getEmail(),'password' => Hash::make($request['password'])];
+
+
+        $user = $this->userRepository->createUser($form);
+        // $user = User::create([
+        //     'name' => $request->name,
+        //     'email' => $providerUser->getEmail(),
+        //     'password' => Hash::make($request['password']),
+        // ]);
 
         $this->guard()->login($user,true);
 

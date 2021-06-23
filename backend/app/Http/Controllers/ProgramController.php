@@ -4,14 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ProgramMakeRequest;
-use App\Program;
-// use App\Http\Controllers\Auth;
 use Illuminate\Support\Facades\Auth;
-use App\User;
+use App\Repositories\Program\ProgramRepositoryInterface;
 
 
 class ProgramController extends Controller
 {
+    protected $programRepository;
+
+    public function __construct(ProgramRepositoryInterface $programRepository)
+    {
+        $this->programRepository = $programRepository;
+    }
     /**
      * 全番組を取得
      *
@@ -19,9 +23,8 @@ class ProgramController extends Controller
      */
     public function index()
     {
-        $program = Program::orderBy('start_date','desc')->get();
-        \Log::info('$program="'.$program.'"');
-        return view('program.index',compact('program'));
+        $program = $this->programRepository->getAllData();
+        return view('program.index', compact('program'));
     }
 
     /**
@@ -42,13 +45,11 @@ class ProgramController extends Controller
      */
     public function store(ProgramMakeRequest $request)
     {
-        $program = new Program;
-        $form = $request->all();
+        $form = ['title' => $request->title, 'body' => $request->body, 'tag' => $request->tag, 'start_date' => $request->start_date, 'start_time' => $request->start_time, 'user_id' => Auth::user()->id];
         unset($form['_token']);
-        $program->user_id = Auth::user()->id;
-        $program->fill($form)->save();
-        session()->flash('flash_message','番組を作成しました');
-        return redirect('/program');
+        $this->programRepository->createData($form);
+        session()->flash('flash_message', '番組を作成しました');
+        return redirect()->route('program.index');
     }
 
     /**
@@ -59,8 +60,8 @@ class ProgramController extends Controller
      */
     public function show($id)
     {
-        $program = Program::find($id);
-        return view('program.detail',compact('program'));
+        $program = $this->programRepository->findDataById($id);
+        return view('program.detail', compact('program'));
     }
 
     /**
@@ -71,8 +72,8 @@ class ProgramController extends Controller
      */
     public function edit($id)
     {
-        $program = Program::find($id);
-        return view('program.edit',compact('program'));
+        $program = $this->programRepository->findDataById($id);
+        return view('program.edit', compact('program'));
     }
 
     /**
@@ -84,15 +85,10 @@ class ProgramController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $program = Program::find($id);
-        $program->title = $request->title;
-        $program->body = $request->body;
-        $program->tag = $request->tag;
-        $program->start_date = $request->start_date;
-        $program->start_time = $request->start_time;
-        $program->save();
-        session()->flash('flash_message','番組を編集しました');
-        
+        $form = $request->all();
+        unset($form['_token']);
+        $this->programRepository->updateDateById($form, $id);
+        session()->flash('flash_message', '番組を編集しました');
         return redirect('/program');
     }
 
@@ -104,9 +100,8 @@ class ProgramController extends Controller
      */
     public function destroy($id)
     {
-        $program = Program::find($id);
-        $program->delete();
-        session()->flash('flash_message','番組を削除しました');
+        $this->programRepository->deleteDataById($id);
+        session()->flash('flash_message', '番組を削除しました');
         return redirect('/program');
     }
 }

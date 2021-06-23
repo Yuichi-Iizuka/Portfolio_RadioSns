@@ -19,7 +19,7 @@
     </div>
     <div class="card-body">
       <form>
-        <div id="clock" class="text-center">00:00:00
+        <div id="clock" class="display-4 text-center">00:00:00
         </div>
         <input type="hidden" name="program_id" id="program_id" value="{{ $program->id }}">
         <button class="btn btn-outline-info waves-effect" id="update" type="button"><i class="fab fa-twitter"></i>ツイート取得</button>
@@ -27,28 +27,25 @@
     </div>
   </div>
 </div>
-<div class="container">
-  <div class="d-grid gap-2">
 
-  </div>
-</div>
-<div class="container">
-  <div id="tweet">
-    <div id="tweetlist" style="display: none;">
-      <div class="card mb-2">
-        <div class="card body">
-          <div class="media">
-            <img src="https://placehold.jp/70x70.png" class="rounded-circle mr-4">
-            <div class="media-body">
-
-              <p id="text" class="mt-3 mb-0"></p>
+<div id="tweet">
+  <div id="tweetlist" style="display: none;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md mb-4">
+          <div class="card">
+            <div class="card-body">
+            <p id="name" class="h4"></p>
+            <hr>
+              <!-- <div class="media">
+            <img src="https://placehold.jp/70x70.png" class="rounded-circle mr-4"> -->
+              <p id="text" class="h5"></p>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <button type="button" onclick="historu.back()">戻る</button>
-
-  @endsection
+@endsection

@@ -7,7 +7,7 @@
       <div class="card">
 
         <div class="card-body">
-          <form method="POST" action="{{ route('mypage.update',$user->name) }}">
+          <form method="POST" action="{{ route('mypage.update',$user->id) }}">
             @csrf
             @method('patch')
             <p class="h4 text-center py-4">プロフィール編集</p>

@@ -27,6 +27,7 @@
     },
     "dependencies": {
         "chart.js": "^3.3.2",
-        "mdbootstrap": "^4.19.2"
+        "mdbootstrap": "^4.19.2",
+        "toastr": "^2.1.4"
     }
 }

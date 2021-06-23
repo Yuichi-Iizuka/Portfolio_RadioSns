@@ -37,10 +37,4 @@ class UserRequest extends FormRequest
         ];
     }
 
-    public function formparam()
-    {
-        $validate = parent::validated();
-
-        return $validate;
-    }
 }

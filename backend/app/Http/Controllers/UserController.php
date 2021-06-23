@@ -7,25 +7,32 @@ use App\Http\Requests\UserRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\Program\ProgramRepositoryInterface;
 
 class UserController extends Controller
 {
-    protected $user;
+    protected $userRepository;
+    protected $programRepository;
+    
 
-    public function __construct(User $user) {
-        $this->user = $user;
+    public function __construct(UserRepositoryInterface $userRepository,ProgramRepositoryInterface $programRepository) {
+        $this->userRepository = $userRepository;
+        $this->programRepository = $programRepository;
     }
+    
+
     /**
      * ユーザー情報と作成した番組を取得
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(string $name)
+    public function show($id)
     {
-        $user = User::where('name',$name)->first();
+        $user = $this->userRepository->getUser($id);
         \Log::info('$user="' . $user . '"');
-        $id = $user->id;
-        $program = Program::where('user_id',$id)->get();
+        // $id = $user->id;
+        $program = $this->programRepository->findUserCreateByID($id);
         \Log::info('$program="' . $program . '"');
         return view('mypage.mypage',compact('user','program'));
     }
@@ -36,9 +43,9 @@ class UserController extends Controller
      * @param  string  $name
      * @return \Illuminate\Http\Response
      */
-    public function showLike(string $name)
+    public function showLike($id)
     {
-        $user = User::where('name',$name)->first();
+        $user = $this->userRepository->getUser($id);
         $program = $user->likes;
         \Log::info('$program="' . $program . '"');
         return view('mypage.likes',compact('program','user'));
@@ -82,11 +89,10 @@ class UserController extends Controller
      * @param  string  $name
      * @return \Illuminate\Http\Response
      */
-    public function edit(string $name)
+    public function edit($id)
     {
-        $user = User::where('name',$name)->first();
-
-        $this->authorize('update',$user);
+        $user = $this->userRepository->getUser($id);
+        // $this->authorize('update',$user);
 
         return view('user.edit',compact('user'));
     }
@@ -98,16 +104,19 @@ class UserController extends Controller
      * @param  string  $name
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request,string $name)
+    public function update(UserRequest $request,$id)
     {
-        $user = User::where('name',$name)->first();
+        // $user = $user = $this->userRepository->getUser($name);
 
-        $this->authorize('update',$user);
-
-        $user->fill($request->formparam())->save();
+        // $this->authorize('update',$user);
+        $form = $request->all();
+        unset($form['_token']);
+        // $user->fill($request->formparam())->save();
+        // \Log::info('$data="' . $form . '"');
+        $this->userRepository->updateUserinfo($form,$id);
 
         session()->flash('flash_message','編集しました');
-        return redirect()->route('mypage.user',$name);
+        return redirect()->route('mypage.user',$id);
 
     }
 

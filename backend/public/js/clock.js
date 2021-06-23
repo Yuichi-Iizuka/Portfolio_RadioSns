@@ -3,6 +3,7 @@ var __webpack_exports__ = {};
 /*!*******************************!*\
   !*** ./resources/js/clock.js ***!
   \*******************************/
+// 経過時間を生成するJQuery
 $(function () {
   var sec = 0;
   var min = 0;
