@@ -17,7 +17,7 @@ class ProgramMakeRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
+     * 番組作成のバリデーション
      *
      * @return array
      */
@@ -32,17 +32,33 @@ class ProgramMakeRequest extends FormRequest
         ];
     }
 
-    public function messages()
+    public function attributes()
     {
         return [
-            'title.required' => '入力は必須です',
-            'title.max' => '50文字以内で入力してください',
-            'body.required'=> '入力は必須です',
-            'body.max' => '200文字以内で入力してください',
-            'tag.required' => '入力は必須です',
-            'tag.max' => '50文字以内で入力してください',
-            'start_date.required' => '入力は必須です',
-            'start_time.required' => '入力は必須です',
+            'title' => 'タイトル',
+            'body' => '本文',
+            'tag' => 'タグ',
+            'start_date' => '日付',
+            'start_time' => '時間',
         ];
     }
+
+    // /** 
+    // *番組作成のバリデーションのメッセージ
+    // *
+    // *@return array
+    // */
+    // public function messages()
+    // {
+    //     return [
+    //         'title.required' => '入力は必須です',
+    //         'title.max' => '50文字以内で入力してください',
+    //         'body.required'=> '入力は必須です',
+    //         'body.max' => '200文字以内で入力してください',
+    //         'tag.required' => '入力は必須です',
+    //         'tag.max' => '50文字以内で入力してください',
+    //         'start_date.required' => '入力は必須です',
+    //         'start_time.required' => '入力は必須です',
+    //     ];
+    // }
 }

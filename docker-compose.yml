@@ -25,6 +25,9 @@ services:
     build: ./infra/mysql
     volumes:
       - db-store:/var/lib/mysql
+  
+  db-test:
+    build: ./infra/mysql
 
 volumes:
   db-store:

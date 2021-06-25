@@ -1,3 +1,4 @@
+// 経過時間を生成するJQuery
 $(function () {
   var sec = 0;
   var min = 0;

@@ -3,73 +3,123 @@
 @section('content')
 
 <div class="container">
-  <div class="card">
-    <div class="card-body card-body-cascade text-center">
-      <h5 class="card-title"><strong>{{$item->title}}</strong></h5>
-      <p class="card-text">{{$item->body}}</p>
-    </div>
+  <div class="row">
+    <div class="col-md mb-4">
+      <div class="card">
+        <div class="card-body d-flex flex-row">
+          <div class="font-weight-bold">
+            <h3 class="h2 card-title">
+              <a href="{{ route('timeline.index',$program->id) }}" class="text-dark">{{$program->title}}</a>
+            </h3>
+            <!-- <p class="card-text">{{$program->body}}</p> -->
+          </div>
+          @if( Auth::id() === $program->user_id )
+          <!-- dropdown -->
+          <div class="ml-auto card-text">
+            <div class="dropdown">
+              <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button type="button" class="btn btn-link text-muted m-0 p-2">
+                  <i class="fas fa-ellipsis-v"></i>
+                </button>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="{{ route('program.edit',$program->id) }}">
+                  <i class="fas fa-pen mr-1"></i>更新する
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item text-danger" data-toggle="modal" data-target="#modal-delete-{{ $program->id }}" data-placement="top">
+                  <i class="fas fa-trash-alt mr-1"></i>削除する
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- dropdown -->
 
-    @if($item->likes()->where('user_id',Auth::id())->exists())
-    {!! Form::open(['route' => ['program.unlike',$item->id],'method'=>'delete']) !!}
-    {!! Form::button('<a class="btn-floating btn-small btn-fb"><i class="fas fa-heart"></i></a>',['class' => "btn", 'type' => 'submit']) !!}
-    {!! Form::close() !!}
-    @else
-    {!! Form::open(['route' => ['program.like',$item->id],'method'=>'put']) !!}
-    {!! Form::button('<i class="fas fa-heart"></i>',['class' => "btn", 'type' => 'submit']) !!}
-    {!! Form::close() !!}
-    @endif
-    <hr>
-    <div class="row">
-      <div class="col"><a href="{{ route('program.index') }}" class="btn-floating btn-lg" title="一覧へ"><i class="fas fa-list fa-3x"></i></div>
-      <div class="col"><a type="button" data-toggle="modal" data-target="#commentModal" class="btn-floating btn-lg btn-tw"><i class="fas fa-comment-dots fa-4x"></i></a></div>
-      <div class="col"><a type="button" href="{{ route('timeline.index',$item->id) }}" class="btn-floating btn-lg btn-tw"><i class="fab fa-twitter fa-4x"></i></a></div>
-    </div>
-  </div>
-</div>
+          <!-- 番組削除モーダル -->
+          <div class="modal fade" id="modal-delete-{{ $program->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="deleteModalTitle">番組削除</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form method="post" href="{{ route('program.store',$program->id) }}">
+                  @csrf
+                  @method('delete')
+                  <div class="modal-body">
+                    {{ $program->title}}を削除します。よろしいですか？
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-grey" data-dismiss="modal">キャンセル</button>
+                    <button type="submit" class="btn btn-outline-danger waves-effect">削除する</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          @endif
+        </div>
+        <div class="card-body pt-0">
+          <div class="card-text">
+            {{$program->body}}
+          </div>
+          <hr>
 
 
-<!-- Modal -->
-<div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="commentModalTitle">コメント投稿</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+          <div class="d-flex bd-highlight">
+            <div class="my-box flex-grow-1">
+              {{$program->start_date}} &ensp; {{substr($program->start_time,0,5)}}放送
+            </div>
+            <div class="my-box"><a type="button" data-toggle="modal" data-target="#commentModal" data-placement="top" title="コメントを投稿します"><i class="fas fa-comment-dots"></i></a></div>
+            <div class="my-box">@if($program->likes()->where('user_id',Auth::id())->exists())
+              <a class="btn-floating btn-small btn-fb" href="{{ route('program.unlike',$program->id) }}" onclick="event.preventDefault(); document.getElementById('unlike-form').submit();"><i class="fas fa-heart"></i>
+              </a>
+              <form id="unlike-form" action="{{ route('program.unlike',$program->id) }}" method="post" style="display: none;">
+                @csrf
+                @method('delete')
+              </form>
+              @else
+              <a class="btn-floating btn-small btn-fb" href="{{ route('program.like',$program->id) }}" onclick="event.preventDefault(); document.getElementById('like-form').submit();"><i class="far fa-heart"></i>
+              </a>
+              <form id="like-form" action="{{ route('program.like',$program->id) }}" method="post" style="display: none;">
+                @csrf
+                @method('put')
+              </form>
+              @endif
+            </div>
+          </div>
+
+
+          <!-- コメントフォームのモーダル画面 -->
+          <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="commentModalTitle">コメント投稿</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form method="post" action="{{ route('comment.store',$program->id) }}">
+                  @csrf
+                  <div class="modal-body">
+                    <textarea class="form-control" name="body" id="body" rows="3"></textarea>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
+                    <button type="submit" class="btn btn-primary">投稿</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <form method="post" action="{{ route('comment.store',$item->id) }}">
-        @csrf
-        <div class="modal-body">
-          <textarea class="form-control" name="body" id="body" rows="3"></textarea>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
-          <button type="submit" class="btn btn-primary">投稿</button>
-        </div>
-      </form>
     </div>
   </div>
 </div>
-</div>
-
-<div class="container">
-  <div class="card">
-    @forelse($item->comments as $comment)
-    <div class="card-header">
-      {{ $comment->user->name}}
-    </div>
-    <div class="card-body">
-      <blockquote class="blockquote mb-0">
-        <p>{{ $comment->body }}</p>
-        <footer class="blockquote-footer">{{ $comment->created_at }}</footer>
-      </blockquote>
-    </div>
-    @empty
-    <div class="card-body">
-      <p>コメントなし</p>
-    </div>
-    @endforelse
-  </div>
-</div>
+<!-- コメント -->
+@include('comment.list')
 @endsection

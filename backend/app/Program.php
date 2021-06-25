@@ -13,8 +13,15 @@ class Program extends Model
         'body',
         'tag',
         'start_date',
-        'start_time'
+        'start_time',
+        'user_id',
     ];
+
+    // protected $dates = [
+    //     'start_date',
+    // ];
+
+    
 
     public function users()
     {
