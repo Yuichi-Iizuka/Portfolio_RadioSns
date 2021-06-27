@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use App\User;
 use App\Program;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class ProgramControllerTest extends TestCase
@@ -103,43 +103,77 @@ class ProgramControllerTest extends TestCase
         $response->assertRedirect(route('program.index'));
     }
 
-    /**
-     * ログイン時の番組編集の表示テスト
-     *
-     * @return void
-     */
+    // /**
+    //  * ログイン時の番組編集の表示テスト
+    //  *
+    //  * @return void
+    //  */
 
-    public function testAuthProgramEdit()
-    {
-        $this->withoutExceptionHandling();
-        $program = factory(Program::class)->create();
-        $user = $program->user;
+    // public function testAuthProgramEdit()
+    // {
 
-        $response = $this->get(route('program.edit',$program->id));
+    //     $this->withMiddleware();
+    //     $program = factory(Program::class)->create();
+    //     $user = $program->user;
 
-        $response->assertStatus(200)->assertViewIs('program.edit');
+    //     $response = $this->get(route('program.edit',$program->id));
 
-    }
+    //     $response->assertStatus(200)->assertViewIs('program.edit',$program);
+    // }
+
+    // /**
+    //  * ログイン時の番組編集の表示テスト
+    //  *
+    //  * @return void
+    //  */
+    // public function testAuthProgramUpdate()
+    // {
+    //     $this->withoutExceptionHandling();
+    //     $program = factory(Program::class)->create();
+
+    // }
 
 
 
 
-    
+
     /**
      * ログイン時の番組削除の表示テスト
      *
      * @return void
      */
 
-     public function testAuthProgramDelete()
-     {
-         $this->withoutExceptionHandling();
-        $program = factory(Program::class)->create();
+    public function testAuthProgramDelete()
+    {
+        $user = factory(User::class)->create();
 
-        $response = $this->get(route('program.delete',$program->id));
+        $title = 'テストのANN';
+        $body = 'テストテスト';
+        $tag = 'テストANN';
+        $start_date = '2021-06-19';
+        $start_time = '01:00:00';
+        $user_id = $user->id;
 
-        $response->assertStatus(200)->assertViewIs('')
-     }
+        $program = Program::create([
+            'title' => $title,
+            'body' => $body,
+            'tag' => $tag,
+            'start_date' => $start_date,
+            'start_time' => $start_time,
+            'user_id' => $user->id,
+        ]);
 
+        $response = $this->actingAs($user)->delete(route('program.destroy', $program->id));
 
+        $this->assertDeleted('programs', [
+            'title' => $title,
+            'body' => $body,
+            'tag' => $tag,
+            'start_date' => $start_date,
+            'start_time' => $start_time,
+            'user_id' => $user_id
+        ]);
+
+        $response->assertRedirect(route('program.index'));
+    }
 }
