@@ -21,11 +21,11 @@
               </a>
               <div class="dropdown-menu dropdown-menu-right">
                 <a class="dropdown-item" href="{{ route('program.edit',$program->id) }}">
-                  <i class="fas fa-pen mr-1"></i>更新する
+                  更新する
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item text-danger" data-toggle="modal" data-target="#modal-delete-{{ $program->id }}" data-placement="top">
-                  <i class="fas fa-trash-alt mr-1"></i>削除する
+                  削除する
                 </a>
               </div>
             </div>
