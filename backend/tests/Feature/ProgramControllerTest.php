@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use App\User;
 use App\Program;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class ProgramControllerTest extends TestCase
@@ -110,16 +110,16 @@ class ProgramControllerTest extends TestCase
     //  */
 
     // public function testAuthProgramEdit()
-    //  {
-    //      $this->withoutExceptionHandling();
-    //      $program = factory(Program::class)->create();
-    //      $user = $program->user_id;
+    // {
 
-    //      $response = $this->get(route('program.edit', $program->id));
+    //     $this->withMiddleware();
+    //     $program = factory(Program::class)->create();
+    //     $user = $program->user;
 
-    //      $response->assertStatus(200)
-    //          ->assertViewIs('program.edit');
-    //  }
+    //     $response = $this->get(route('program.edit',$program->id));
+
+    //     $response->assertStatus(200)->assertViewIs('program.edit',$program);
+    // }
 
     // /**
     //  * ログイン時の番組編集の表示テスト
