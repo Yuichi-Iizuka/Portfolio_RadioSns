@@ -24,11 +24,11 @@
               </a>
               <div class="dropdown-menu dropdown-menu-right">
                 <a class="dropdown-item" href="{{ route('program.edit',$program->id) }}">
-                  <i class="fas fa-pen mr-1"></i>更新する
+                  更新する
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item text-danger" data-toggle="modal" data-target="#modal-delete-{{ $program->id }}" data-placement="top">
-                  <i class="fas fa-trash-alt mr-1"></i>削除する
+                  削除する
                 </a>
               </div>
             </div>
@@ -108,8 +108,8 @@
                     <textarea class="form-control" name="body" id="body" rows="3"></textarea>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
-                    <button type="submit" class="btn btn-primary">投稿</button>
+                    <button type="button" class="btn btn-outline-grey" data-dismiss="modal">キャンセル</button>
+                    <button type="submit" class="btn btn-outline-primary">投稿</button>
                   </div>
                 </form>
               </div>

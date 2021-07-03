@@ -55,8 +55,7 @@
                         <button type="submit" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0">
                             登録
                         </button>
-                        <p class="h6 text-center py-4">またはこちらで登録</p>
-                        <a href="{{ route('login.{provider}',['provider' => 'google']) }}"><i class="fab fa-google"></i></a>
+                        <p class="h6 text-center py-4"><a href="{{ route('login.{provider}',['provider' => 'google']) }}">Google</a>で登録</p>
                     </form>
                 </div>
             </div>

@@ -15,11 +15,11 @@ class CreateProgramsTable extends Migration
     {
         Schema::create('programs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title',50);
-            $table->text('body',200);
-            $table->string('tag',50);
+            $table->string('title', 50);
+            $table->text('body', 200);
+            $table->string('tag', 50);
             $table->string('image');
-            
+
 
             $table->timestamps();
         });
