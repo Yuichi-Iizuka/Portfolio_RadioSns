@@ -4,7 +4,7 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-body">
-          <form method="post" action="{{ route('program.store') }}">
+          <form method="post" action="{{ route('program.store') }}" enctype="multipart/form-data">
             @csrf
             <p class="h4 text-center py-4">番組作成</p>
             @include('program.form')

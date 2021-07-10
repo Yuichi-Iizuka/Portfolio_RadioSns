@@ -29,6 +29,7 @@ class ProgramMakeRequest extends FormRequest
             'tag' => 'required|max:50',
             'start_date' => 'required',
             'start_time' => 'required',
+            'image_path' => 'required',
         ];
     }
 

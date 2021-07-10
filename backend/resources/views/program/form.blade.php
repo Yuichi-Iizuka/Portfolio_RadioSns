@@ -50,3 +50,7 @@
   </span>
   @enderror
 </div>
+<div class="custom-file">
+  <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" name="image_path" value="{{ $program->image_path ?? old('image_path')}}">
+  <label class="custom-file-label" for="inputGroupFile01">画像を選択してください</label>
+</div>
