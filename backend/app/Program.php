@@ -15,6 +15,7 @@ class Program extends Model
         'start_date',
         'start_time',
         'user_id',
+        'image_path',
     ];
 
     // protected $dates = [
