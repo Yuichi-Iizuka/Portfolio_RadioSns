@@ -41,6 +41,7 @@ class ProgramMakeRequest extends FormRequest
             'tag' => 'タグ',
             'start_date' => '日付',
             'start_time' => '時間',
+            'image_path' => '画像'
         ];
     }
 
