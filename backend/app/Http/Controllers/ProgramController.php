@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ProgramMakeRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\Program\ProgramRepositoryInterface;
-
+use Illuminate\Support\Facades\Storage;
 
 class ProgramController extends Controller
 {
@@ -45,7 +45,12 @@ class ProgramController extends Controller
      */
     public function store(ProgramMakeRequest $request)
     {
-        $form = ['title' => $request->title, 'body' => $request->body, 'tag' => $request->tag, 'start_date' => $request->start_date, 'start_time' => $request->start_time, 'user_id' => Auth::user()->id];
+        //s3へのアップロード
+        $image = $request->file('image_path');
+        $path = Storage::disk('s3')->putFile('programs/',$image,'public');
+        $image_path = Storage::disk('s3')->url($path);
+        
+        $form = ['title' => $request->title, 'body' => $request->body, 'tag' => $request->tag, 'start_date' => $request->start_date, 'start_time' => $request->start_time, 'user_id' => Auth::user()->id, 'image_path' => $image_path];
         unset($form['_token']);
         $this->programRepository->createData($form);
         session()->flash('flash_message', '番組を作成しました');
