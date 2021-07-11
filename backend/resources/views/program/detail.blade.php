@@ -6,6 +6,7 @@
   <div class="row">
     <div class="col-md mb-4">
       <div class="card">
+      <img class="card-img-top" src="{{ $program->image_path }}" alt="Card image cap">
         <div class="card-body d-flex flex-row">
           <div class="font-weight-bold">
             <h3 class="h2 card-title">
