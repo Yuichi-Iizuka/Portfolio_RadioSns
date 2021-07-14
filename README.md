@@ -45,7 +45,6 @@ YouTubeなどにもチャット機能やコメント機能があるように、�
 - Laravel 6.2
 - PHPUnit
 - TwitterAPI
-- GoogleAPI
 
 ### フロントエンド
 - jQuery 3.4.1
@@ -85,7 +84,6 @@ YouTubeなどにもチャット機能やコメント機能があるように、�
 ### ユーザー関連
 - 新規登録機能
 - ログイン、ログアウト機能
-- Googleログイン
 
 ### TwitterAPI
 - Twitterのつぶやきを取得  
