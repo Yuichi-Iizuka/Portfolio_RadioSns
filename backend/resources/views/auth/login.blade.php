@@ -48,7 +48,7 @@
                             ログイン
                         </button>
                         <hr>
-                        <p class="h6 text-center py-4"><a href="{{ route('login.{provider}',['provider' => 'google']) }}">Google</a>でログイン</p>
+                        <!-- <p class="h6 text-center py-4"><a href="{{ route('login.{provider}',['provider' => 'google']) }}">Google</a>でログイン</p> -->
 
                     </form>
                 </div>
