@@ -16,6 +16,7 @@
     <script src="{{ mix('js/update.js') }}" defer></script>
     <script src="{{ mix('js/flashoption.js') }}" defer></script>
     <script src="{{ mix('js/tooltip.js') }}" defer></script>
+    <script src="{{ mix('js/fileupload.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
