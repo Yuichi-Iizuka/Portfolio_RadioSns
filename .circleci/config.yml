@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run: sudo composer self-update --1
       - run: 
-          working_directry: backend
+          working_directory: backend
           command: composer install -n --prefer-dist
       - run: npm ci
       - run: npm run dev
