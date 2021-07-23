@@ -4,7 +4,7 @@ jobs:
     docker:
       - image: circleci/php:7.4-node-browsers
       - image: circleci/mysql:8.0
-    enviroment:
+    environment:
       - DB_HOST: 127.0.0.1
     steps:
       - checkout
