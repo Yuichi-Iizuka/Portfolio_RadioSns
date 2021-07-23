@@ -42,7 +42,7 @@ class ProgramControllerTest extends TestCase
             ->assertViewIs('program.index')
             ->assertSee('番組作成')
             ->assertSee($user->name)
-            ->assertSee('Logout')
+            ->assertSee('ログアウト')
             ->assertSee('マイページ');
     }
 
@@ -68,13 +68,12 @@ class ProgramControllerTest extends TestCase
      */
     public function testAuthProgramCreate()
     {
-        $this->WithoutMiddleware();
-
+        
         $user = factory(User::class)->create();
 
-        $title = 'テストのANN';
-        $body = 'テストテスト';
-        $tag = 'テストANN';
+        $title = 'testANN';
+        $body = 'testtesttest';
+        $tag = 'testANN';
         $start_date = '2021-06-19';
         $start_time = '01:00:00';
         $user_id = $user->id;
@@ -91,7 +90,8 @@ class ProgramControllerTest extends TestCase
             ]
         ));
 
-        $this->assertDatabaseHas('programs', [
+        $this->assertDatabaseHas('programs', 
+            [
             'title' => $title,
             'body' => $body,
             'tag' => $tag,
