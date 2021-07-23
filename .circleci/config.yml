@@ -3,6 +3,9 @@ jobs:
   build:
     docker:
       - image: circleci/php:7.4-node-browsers
+      - image: circleci/mysql:8.0
+    enviroment:
+      - DB_HOST: 127.0.0.1
     steps:
       - checkout
       - run: sudo composer self-update --1
