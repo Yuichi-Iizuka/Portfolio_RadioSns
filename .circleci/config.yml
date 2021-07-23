@@ -10,12 +10,12 @@ jobs:
           working_directory: backend
           command: composer install -n --prefer-dist
       - run: 
-        working_directory: backend
-        command: npm ci
+          working_directory: backend
+          command: npm ci
       - run: 
-        working_directory: backend
-        command: npm run dev
+          working_directory: backend
+          command: npm run dev
       - run:
-        working_directory: backend
-        name: php test
-        command: vendor/bin/phpunit
+          working_directory: backend
+          name: php test
+          command: vendor/bin/phpunit
