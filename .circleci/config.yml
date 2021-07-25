@@ -22,7 +22,7 @@ jobs:
       - run: sudo docker-php-ext-install zip pdo_mysql
       - run: sudo composer self-update --1
       - restore_cache:
-          kye: composer-v1-{{ checksum "composer.lock" }}
+          key: composer-v1-{{ checksum "composer.lock" }}
       - run: 
           working_directory: backend
           command: composer install -n --prefer-dist
@@ -31,7 +31,7 @@ jobs:
           paths:
             - vendor
       - restore_cache:
-          kye: npm-v1-{{ checksum "package-lock.json" }}
+          key: npm-v1-{{ checksum "package-lock.json" }}
       - run: 
           working_directory: backend
           name: npm ci
