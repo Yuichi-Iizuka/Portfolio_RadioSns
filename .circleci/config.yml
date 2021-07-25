@@ -21,12 +21,28 @@ jobs:
       - run: sudo apt update
       - run: sudo docker-php-ext-install zip pdo_mysql
       - run: sudo composer self-update --1
+      - restore_cache:
+          key: composer-v2-{{ checksum "composer.lock" }}
       - run: 
           working_directory: backend
           command: composer install -n --prefer-dist
+      - save_cache:
+          key: composer-v2-{{ checksum "composer.lock" }}
+          paths:
+            - backend/vendor
+     - restore_cache:
+          key: npm-v2-{{ checksum "package-lock.json" }}
       - run: 
           working_directory: backend
-          command: npm ci
+          name: npm ci
+          command: |
+            if [ ! -d node_modules ]; then
+              npm ci
+            fi 
+      - save_cache:
+          key: npm-v1-{{ checksum "package-lock.json" }}
+          paths:
+            - backend/node_modules
       - run: 
           working_directory: backend
           command: npm run dev
