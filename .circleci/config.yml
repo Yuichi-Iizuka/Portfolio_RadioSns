@@ -5,8 +5,11 @@ jobs:
       - image: circleci/php:7.4-node-browsers
       - image: circleci/mysql:5.7
         environment:
-          - MYSQL_ALLOW_EMPTY_PASSWORD: true
           - MYSQL_DATABASE: rs
+          - MYSQL_USER: phper
+          - MYSQL_ROOT_PASSWORD: secret
+    environment:
+      - DB_HOST: 127.0.0.1
     steps:
       - checkout
       - run: sudo apt update
