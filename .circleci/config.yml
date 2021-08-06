@@ -26,7 +26,7 @@ jobs:
           command: vendor/bin/phpunit
   deploy:
     docker: 
-      - image: image: circleci/php:7.4-node-browsers
+      - image: circleci/php:7.4-node-browsers
     steps: 
       - add_ssh_keys
       - run:
