@@ -32,7 +32,7 @@ jobs:
       - run:
           name: deploy
           command: |
-            ssh ssh -o StrictHostKeyChecking=no -t webapp@${HOST_NAME} "cd Portfolio_RadioSns/backend && \
+            ssh -o StrictHostKeyChecking=no -t webapp@${HOST_NAME} "cd Portfolio_RadioSns/backend && \
               git pull origin master && \
               composer install -n --no-dev --prefer-dist && \
               npm ci && \
